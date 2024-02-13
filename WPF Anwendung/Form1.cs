@@ -39,51 +39,59 @@ namespace WPF_Anwendung
         // Diese Methode liest eine Excel-Datei und vergleicht die Daten mit der Eingabe des Benutzers
         public void ReadExcelRowAndCompare(string filePath, string textBoxValue)
         {
-            Excel.Application excelApp = new Excel.Application(); // Erstellt eine neue Excel-Anwendung
-            Excel.Workbook workbook = excelApp.Workbooks.Open(filePath); // Öffnet das Workbook an dem angegebenen Pfad
-            Excel._Worksheet worksheet = workbook.Sheets[1]; // Zugriff auf das erste Arbeitsblatt
-            Excel.Range usedRange = worksheet.UsedRange; // Zugriff auf den benutzten Bereich des Arbeitsblatts
-
-            object[,] values = usedRange.Value2; // Speichert die Werte des benutzten Bereichs in einem Array
-
-            // Durchläuft die Zeilen des benutzten Bereichs
-            for (int i = 19; i <= values.GetLength(0); i++)
+            if(textBoxValue.Length != 4)
             {
-                // Überprüft, ob der Wert in der vierten Spalte der aktuellen Zeile nicht null ist
-                if (values[i, 4] != null)
+                    MessageBox.show("Eingabe muss 4 Stellen haben !");
+
+            }
+            else{
+                Excel.Application excelApp = new Excel.Application(); // Erstellt eine neue Excel-Anwendung
+                Excel.Workbook workbook = excelApp.Workbooks.Open(filePath); // Öffnet das Workbook an dem angegebenen Pfad
+                Excel._Worksheet worksheet = workbook.Sheets[1]; // Zugriff auf das erste Arbeitsblatt
+                Excel.Range usedRange = worksheet.UsedRange; // Zugriff auf den benutzten Bereich des Arbeitsblatts
+
+                object[,] values = usedRange.Value2; // Speichert die Werte des benutzten Bereichs in einem Array
+
+                // Durchläuft die Zeilen des benutzten Bereichs
+                for (int i = 19; i <= values.GetLength(0); i++)
                 {
-                    string cellValue = values[i, 4].ToString(); // Konvertiert den Wert in einen String
-                    // Überprüft, ob die Länge des Strings mindestens 4 ist
-                    if (cellValue.Length >= 4)
+                    // Überprüft, ob der Wert in der vierten Spalte der aktuellen Zeile nicht null ist
+                    if (values[i, 4] != null)
                     {
-                        // Extrahiert die letzten vier Ziffern des Strings
-                        string lastFourNumbers = cellValue.Substring(cellValue.Length - 4);
-                        // Überprüft, ob die letzten vier Ziffern dem Wert im Textfeld entsprechen
-                        if (lastFourNumbers == textBoxValue)
+                        string cellValue = values[i, 4].ToString(); // Konvertiert den Wert in einen String
+                        // Überprüft, ob die Länge des Strings mindestens 4 ist
+                        if (cellValue.Length >= 4)
                         {
-                            // Definiert die Spalten, die angezeigt werden sollen
-                            int[] columnsToShow = new int[] { 2, 3, 4, 5, 8, 9, 10 };
-                            // Durchläuft die definierten Spalten
-                            foreach (int j in columnsToShow)
+                            // Extrahiert die letzten vier Ziffern des Strings
+                            string lastFourNumbers = cellValue.Substring(cellValue.Length - 4);
+                            // Überprüft, ob die letzten vier Ziffern dem Wert im Textfeld entsprechen
+                            if (lastFourNumbers == textBoxValue)
                             {
-                                // Überprüft, ob der Wert in der aktuellen Spalte und Zeile nicht null ist
-                                if (values[i, j] != null)
+                                // Definiert die Spalten, die angezeigt werden sollen
+                                int[] columnsToShow = new int[] { 2, 3, 4, 5, 8, 9, 10 };
+                                // Durchläuft die definierten Spalten
+                                foreach (int j in columnsToShow)
                                 {
-                                    string cellToWriteValue = values[i, j].ToString(); // Konvertiert den Wert in einen String
-                                    // Fügt den Wert zum Text des zweiten Textfelds hinzu
-                                    textBox2.Text += cellToWriteValue + Environment.NewLine;
+                                    // Überprüft, ob der Wert in der aktuellen Spalte und Zeile nicht null ist
+                                    if (values[i, j] != null)
+                                    {
+                                        string cellToWriteValue = values[i, j].ToString(); // Konvertiert den Wert in einen String
+                                        // Fügt den Wert zum Text des zweiten Textfelds hinzu
+                                        textBox2.Text += cellToWriteValue + Environment.NewLine;
+                                    }
                                 }
+                                // Fügt eine leere Zeile zum Text des zweiten Textfelds hinzu
+                                textBox2.Text += Environment.NewLine;
                             }
-                            // Fügt eine leere Zeile zum Text des zweiten Textfelds hinzu
-                            textBox2.Text += Environment.NewLine;
                         }
                     }
                 }
-            }
 
-            // Schließt das Workbook und beendet die Excel-Anwendung
-            workbook.Close();
-            excelApp.Quit();
+                // Schließt das Workbook und beendet die Excel-Anwendung
+                workbook.Close();
+                excelApp.Quit();
+            }
+            
         }
 
         // Diese Methode wird aufgerufen, wenn der Benutzer auf den zweiten Button klickt
