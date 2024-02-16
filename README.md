@@ -1,6 +1,7 @@
 # Daten-aus-Excel-auslesen
 
 Dieses Projekt ist eine Windows Forms-Anwendung, die eine Excel-Datei liest und bestimmte Daten auf der Grundlage der Eingabe des Benutzers vergleicht.
+Habe dies für eine Abteilung geschrieben
 
 ## Funktionen
 
