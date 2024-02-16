@@ -17,8 +17,8 @@ namespace WPF_Anwendung
     {
         Timer timer = new Timer();
         public static DateTime Now { get; }
-        public string path2 = @"L:\\DOKU-LVS\\03_Anleitungen & Infos\\TESUB1.xlsx";
-        public string path1 = @"L:\\DOKU-LVS\\03_Anleitungen & Infos\\TLG_202301301.xlsx";
+        public string path2 = @"Dein Pfad";
+        public string path1 = @"Dein Pfad";
         public Form1()
         {
             InitializeComponent();
