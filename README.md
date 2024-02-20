@@ -2,6 +2,7 @@
 
 Dieses Projekt ist eine Windows Forms-Anwendung, die eine Excel-Datei liest und bestimmte Daten auf der Grundlage der Eingabe des Benutzers vergleicht.
 Habe dies für eine Abteilung geschrieben
+wichtig ist das sie den Pfad sowie die Bereiche ändern!
 
 ## Funktionen
 
